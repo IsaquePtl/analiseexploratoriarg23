@@ -1070,16 +1070,16 @@
 
     // Hamburger toggle
     const hamburger = document.getElementById('nav-hamburger');
-    const navLinks  = document.getElementById('nav-links');
-    if (hamburger && navLinks) {
+    const navMenu   = document.getElementById('nav-links');
+    if (hamburger && navMenu) {
       hamburger.addEventListener('click', () => {
-        const open = navLinks.classList.toggle('open');
-        hamburger.setAttribute('aria-expanded', open);
+        const isOpen = navMenu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen);
       });
       // Close menu when a link is clicked
-      navLinks.querySelectorAll('a').forEach(a => {
+      navMenu.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => {
-          navLinks.classList.remove('open');
+          navMenu.classList.remove('open');
           hamburger.setAttribute('aria-expanded', 'false');
         });
       });
