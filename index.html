@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Análise Exploratória — Rede Elétrica Portuguesa</title>
+  <title>Análise Exploratória &amp; Clustering — Rede Elétrica Portuguesa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -363,6 +363,37 @@
       .img-card img, .img-card.tall img { height: 220px; }
     }
   
+    /* ── Part heading ──────────────────────────────────────────────── */
+    .part-heading {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 0.6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .part-heading-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+    .part-heading-line.right {
+      background: linear-gradient(270deg, var(--border), transparent);
+    }
+
+    .part-heading-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+      padding: 0.25rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--tag-bg);
+    }
+
     /* ── Map group ───────────────────────────────────────────────── */
     .map-group { margin-bottom: 3rem; }
     .map-group:last-child { margin-bottom: 0; }
@@ -399,7 +430,7 @@
 
 <!-- ── Navigation ──────────────────────────────────────────────────── -->
 <nav>
-  <span class="nav-brand">PFACD Grupo 23 &mdash; An&aacute;lise Explorat&oacute;ria</span>
+  <span class="nav-brand">PFACD Grupo 23 &mdash; An&aacute;lise &amp; Clustering</span>
   <ul class="nav-links">
     <li><a href="#s-dist">Distrital</a></li>
     <li><a href="#s-conc">Municipal</a></li>
@@ -407,6 +438,8 @@
     <li><a href="#s-setubal">Set&uacute;bal</a></li>
     <li><a href="#s-aveiro">Aveiro</a></li>
     <li><a href="#s-cb">Castelo Branco</a></li>
+    <li style="color:var(--text-muted);padding:0.3rem 0.3rem;font-size:0.78rem">|</li>
+    <li><a href="#s-clustering">Clustering</a></li>
   </ul>
 </nav>
 
@@ -416,17 +449,24 @@
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 3v3l2 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
     Projeto PFACD &middot; 2024&ndash;2025
   </div>
-  <h1>An&aacute;lise Explorat&oacute;ria<br>da Rede El&eacute;trica Portuguesa</h1>
-  <p>Estudo do consumo energ&eacute;tico em 4 distritos de Portugal Continental &mdash; Aveiro, Castelo Branco, Set&uacute;bal e Faro &mdash; com recurso a dados da E-Redes e fontes demogr&aacute;ficas externas.</p>
+  <h1>An&aacute;lise Explorat&oacute;ria<br>da Rede El&eacute;trica Portuguesa<br><span style="font-size:0.65em;opacity:0.7">e Clustering</span></h1>
+  <p>Estudo do consumo energ&eacute;tico em 4 distritos de Portugal Continental &mdash; Aveiro, Castelo Branco, Set&uacute;bal e Faro &mdash; com recurso a dados da E-Redes e fontes demogr&aacute;ficas externas. Inclui agrupamento n&atilde;o supervisionado (K-Means, k=5) dos 59 concelhos com base no seu perfil energ&eacute;tico.</p>
   <div class="hero-stats">
     <div class="stat"><span class="stat-number">4</span><span class="stat-label">Distritos</span></div>
     <div class="stat"><span class="stat-number">59</span><span class="stat-label">Concelhos</span></div>
-    <div class="stat"><span class="stat-number">6</span><span class="stat-label">Dimens&otilde;es analisadas</span></div>
-    <div class="stat"><span class="stat-number">36</span><span class="stat-label">Visualiza&ccedil;&otilde;es</span></div>
+    <div class="stat"><span class="stat-number">5</span><span class="stat-label">Clusters</span></div>
+    <div class="stat"><span class="stat-number">40</span><span class="stat-label">Visualiza&ccedil;&otilde;es</span></div>
   </div>
 </header>
 
 <div class="divider"></div>
+
+<!-- ── Part I separator ──────────────────────────────────────────── -->
+<div class="part-heading">
+  <div class="part-heading-line"></div>
+  <span class="part-heading-label">Parte I &mdash; An&aacute;lise Explorat&oacute;ria</span>
+  <div class="part-heading-line right"></div>
+</div>
 
 <!-- ── Main ────────────────────────────────────────────────────────── -->
 <main>
@@ -852,6 +892,66 @@
         <p>Na Energia BT per capita, destaca-se muito Idanha-a-Nova, seguido por concelhos como Vila Velha de Ródão, Covilhã, Fundão e Penamacor. O caso de Idanha-a-Nova está mais uma vez relacionado com a baixa população residente e elevada dispersão territorial.</p>
         <p>Na Energia MAT per capita, Vila Velha de Ródão é novamente o grande outlier. E novamente a explicação é consistente com a presença da indústria da pasta e papel.</p>
         <p>Além disso, projetos industriais ligados à Celtejo incluíram uma central térmica para responder às necessidades da fábrica em vapor de processo e energia elétrica, reforçando a dimensão energética deste polo industrial.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Part II separator ─────────────────────────────────────────── -->
+<div class="part-heading" style="margin-top:2rem;margin-bottom:0">
+  <div class="part-heading-line"></div>
+  <span class="part-heading-label">Parte II &mdash; Clustering</span>
+  <div class="part-heading-line right"></div>
+</div>
+
+<!-- ── Clustering Main ──────────────────────────────────────────────── -->
+<main style="padding-top:2rem">
+
+  <!-- ── Clustering ── -->
+  <section id="s-clustering">
+    <div class="section-header">
+      <div class="section-num">07 &mdash; Agrupamento energ&eacute;tico</div>
+      <h2 class="section-title">Clustering dos Concelhos</h2>
+      <p class="section-desc">Agrupamento n&atilde;o supervisionado (K-Means, k=5) dos 59 concelhos dos 4 distritos em an&aacute;lise. Cada cluster agrupa concelhos com perfis energ&eacute;ticos semelhantes em consumo per capita, sazonalidade, intensidade BT/MAT e penetra&ccedil;&atilde;o de UPAC.</p>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Mapa geral &nbsp;&middot;&nbsp; Zoom por cluster</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/clustering/portugal_clusters.png" alt="Clusters Energ&eacute;ticos &mdash; Portugal Continental" loading="lazy" />
+        <div class="img-caption">Clusters Energ&eacute;ticos &mdash; Portugal Continental</div>
+      </div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/clustering/concelhos_por_cluster.png" alt="Zoom por Cluster &mdash; Localiza&ccedil;&atilde;o Geogr&aacute;fica dos Concelhos" loading="lazy" />
+        <div class="img-caption">Zoom por Cluster &mdash; Localiza&ccedil;&atilde;o dos Concelhos</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Cinco perfis energ&eacute;ticos emergem dos 59 concelhos analisados: <strong>C1 &mdash; Rurais e Perif&eacute;ricos</strong> (16 concelhos) com baixa densidade e consumo moderado e fraca penetra&ccedil;&atilde;o de produ&ccedil;&atilde;o solar distribu&iacute;da; <strong>C2 &mdash; Urbanos de Perfil M&eacute;dio</strong> (34 concelhos) com perfil equilibrado de consumo dom&eacute;stico e ado&ccedil;&atilde;o crescente de UPAC; <strong>C3 &mdash; Polos Industriais MAT</strong> (2 concelhos: Estarreja e Vila Velha de Rodr&atilde;o) com consumo industrial de Muito Alta Tens&atilde;o muito acima da m&eacute;dia nacional; <strong>C4 &mdash; Zona Metropolitana Densa</strong> (6 concelhos) com forte peso do consumo urbano residencial; e <strong>C5 &mdash; Industrial Extremo</strong> (1 concelho: Sines) com consumo dominado pela refinaria e petroqu&iacute;mica.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Sazonalidade do consumo per capita &nbsp;&middot;&nbsp; 2021&ndash;2024</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/clustering/sazonalidade_por_cluster.png" alt="Sazonalidade por Cluster (2021&ndash;2024)" loading="lazy" />
+        <div class="img-caption">Sazonalidade do consumo &mdash; por Cluster</div>
+      </div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/clustering/sazonalidade_por_distritos.png" alt="Sazonalidade por Distrito (2021&ndash;2024)" loading="lazy" />
+        <div class="img-caption">Sazonalidade do consumo &mdash; por Distrito</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>O cluster C3 (Polos Industriais MAT) apresenta um padr&atilde;o de consumo praticamente plano ao longo do ano (r&aacute;cio Inv/Ver &asymp; 1.00), t&iacute;pico de ind&uacute;stria cont&iacute;nua. O cluster C5 (Industrial Extremo &mdash; Sines) exibe ligeira supremacia estival (Inv/Ver = 0.92), reflexo de processos petroqu&iacute;micos mais intensivos no ver&atilde;o. O C4 (Zona Metropolitana Densa) destaca-se com o padr&atilde;o invernal mais pronunciado (Inv/Ver = 1.09), indicativo de aquecimento urbano residencial.</p>
+        <p>Por distrito, Faro apresenta sazonalidade inversa (Inv/Ver = 0.83) &mdash; pico de consumo no ver&atilde;o &mdash; reflexo do turismo algarvio. Castelo Branco e Aveiro exibem perfis mais invernais (Inv/Ver &asymp; 1.06&ndash;1.08), consistentes com maior necessidade de aquecimento. Set&uacute;bal mostra um padr&atilde;o relativamente plano (Inv/Ver = 0.95), influenciado pela componente industrial de Sines.</p>
       </div>
     </div>
   </section>
