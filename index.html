@@ -362,21 +362,51 @@
       main { padding: 2rem 1rem 4rem; gap: 3.5rem; }
       .img-card img, .img-card.tall img { height: 220px; }
     }
-  </style>
+  
+    /* ── Map group ───────────────────────────────────────────────── */
+    .map-group { margin-bottom: 3rem; }
+    .map-group:last-child { margin-bottom: 0; }
+
+    .map-group-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.65rem;
+    }
+
+    /* ── Analysis block ──────────────────────────────────────────── */
+    .analysis-block {
+      margin-top: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .analysis-block p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.75;
+    }
+
+    .analysis-block p + p { margin-top: 0.7rem; }
+</style>
 </head>
 <body>
 
 <!-- ── Navigation ──────────────────────────────────────────────────── -->
 <nav>
-  <span class="nav-brand">PFACD Grupo 23 &mdash; Análise Exploratória</span>
+  <span class="nav-brand">PFACD Grupo 23 &mdash; An&aacute;lise Explorat&oacute;ria</span>
   <ul class="nav-links">
-    <li><a href="#s1">Energia Ativa</a></li>
-    <li><a href="#s2">Zoom Distritos</a></li>
-    <li><a href="#s3">Per Capita</a></li>
-    <li><a href="#s4">UPACs</a></li>
-    <li><a href="#s5">CPEs</a></li>
-    <li><a href="#s6">Energia BT</a></li>
-    <li><a href="#s7">Energia MAT</a></li>
+    <li><a href="#s-dist">Distrital</a></li>
+    <li><a href="#s-conc">Municipal</a></li>
+    <li><a href="#s-faro">Faro</a></li>
+    <li><a href="#s-setubal">Set&uacute;bal</a></li>
+    <li><a href="#s-aveiro">Aveiro</a></li>
+    <li><a href="#s-cb">Castelo Branco</a></li>
   </ul>
 </nav>
 
@@ -384,15 +414,15 @@
 <header class="hero">
   <div class="hero-eyebrow">
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 3v3l2 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    Projeto PFACD · 2024–2025
+    Projeto PFACD &middot; 2024&ndash;2025
   </div>
-  <h1>Análise Exploratória<br>da Rede Elétrica Portuguesa</h1>
-  <p>Estudo do consumo energético em 4 distritos de Portugal Continental — Aveiro, Castelo Branco, Setúbal e Faro — com recurso a dados da E-Redes e fontes demográficas externas.</p>
+  <h1>An&aacute;lise Explorat&oacute;ria<br>da Rede El&eacute;trica Portuguesa</h1>
+  <p>Estudo do consumo energ&eacute;tico em 4 distritos de Portugal Continental &mdash; Aveiro, Castelo Branco, Set&uacute;bal e Faro &mdash; com recurso a dados da E-Redes e fontes demogr&aacute;ficas externas.</p>
   <div class="hero-stats">
     <div class="stat"><span class="stat-number">4</span><span class="stat-label">Distritos</span></div>
     <div class="stat"><span class="stat-number">59</span><span class="stat-label">Concelhos</span></div>
-    <div class="stat"><span class="stat-number">7</span><span class="stat-label">Dimensões analisadas</span></div>
-    <div class="stat"><span class="stat-number">36</span><span class="stat-label">Visualizações</span></div>
+    <div class="stat"><span class="stat-number">6</span><span class="stat-label">Dimens&otilde;es analisadas</span></div>
+    <div class="stat"><span class="stat-number">36</span><span class="stat-label">Visualiza&ccedil;&otilde;es</span></div>
   </div>
 </header>
 
@@ -401,259 +431,427 @@
 <!-- ── Main ────────────────────────────────────────────────────────── -->
 <main>
 
-  <!-- ── Slide 1: Energia Ativa Total ── -->
-  <section id="s1">
+  <!-- ── Mapas a nível distrital ── -->
+  <section id="s-dist">
     <div class="section-header">
-      <div class="section-num">01 &mdash; Slide 1</div>
-      <h2 class="section-title">Energia Ativa Total</h2>
-      <p class="section-desc">Visão geral da energia ativa total consumida nos 4 distritos de estudo, representada a nível de concelho e de distrito. As regiões a roxo mais escuro correspondem a maior consumo energético médio mensal.</p>
+      <div class="section-num">01 &mdash; Mapas a nível distrital</div>
+      <h2 class="section-title">Portugal — Por Distrito</h2>
+      <p class="section-desc">Visão geral comparativa dos 4 distritos de estudo em relação ao resto de Portugal Continental, agregada ao nível distrital.</p>
     </div>
-    <div class="img-grid two-col" id="grid-s1">
-      <div class="img-card tall" data-section="s1" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide1/1.png" alt="Energia Ativa Total por concelho" loading="lazy" />
-        <div class="img-caption">Por concelho — gradiente de intensidade</div>
-      </div>
-      <div class="img-card tall" data-section="s1" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia Ativa Total &nbsp;·&nbsp; Consumo per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
         <img src="images/slide1/2.png" alt="Energia Ativa Total por distrito" loading="lazy" />
-        <div class="img-caption">Por distrito — visão agregada</div>
+        <div class="img-caption">Energia Ativa Total por distrito</div>
+      </div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide3/7.png" alt="Consumo per capita por distrito" loading="lazy" />
+        <div class="img-caption">Consumo per capita por distrito</div>
+      </div>
       </div>
     </div>
-  </section>
 
-  <!-- ── Slide 2: Zoom por Distrito ── -->
-  <section id="s2">
-    <div class="section-header">
-      <div class="section-num">02 &mdash; Slide 2</div>
-      <h2 class="section-title">Zoom por Distrito</h2>
-      <p class="section-desc">Análise detalhada da energia ativa total média por concelho em cada um dos quatro distritos estudados. Permite identificar os concelhos com maior consumo dentro de cada distrito.</p>
-    </div>
-    <div class="img-grid four-col" id="grid-s2">
-      <div class="img-card" data-section="s2" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide2/3.png" alt="Energia Ativa Total — Faro" loading="lazy" />
-        <div class="img-caption">Faro</div>
-      </div>
-      <div class="img-card" data-section="s2" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide2/4.png" alt="Energia Ativa Total — Setúbal" loading="lazy" />
-        <div class="img-caption">Setúbal</div>
-      </div>
-      <div class="img-card" data-section="s2" data-index="2">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide2/5.png" alt="Energia Ativa Total — Aveiro" loading="lazy" />
-        <div class="img-caption">Aveiro</div>
-      </div>
-      <div class="img-card" data-section="s2" data-index="3">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide2/6.png" alt="Energia Ativa Total — Castelo Branco" loading="lazy" />
-        <div class="img-caption">Castelo Branco</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Slide 3: Consumo per capita ── -->
-  <section id="s3">
-    <div class="section-header">
-      <div class="section-num">03 &mdash; Slide 3</div>
-      <h2 class="section-title">Consumo per capita</h2>
-      <p class="section-desc">Consumo de energia elétrica por habitante, relativizado à densidade populacional de cada território. Permite comparar o esforço energético individual independentemente da dimensão demográfica.</p>
-    </div>
-    <div class="img-grid" id="grid-s3">
-      <div class="img-card" data-section="s3" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide3/7.png" alt="Consumo per capita — 7" loading="lazy" />
-        <div class="img-caption">Vista geral por distrito</div>
-      </div>
-      <div class="img-card" data-section="s3" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide3/8.png" alt="Consumo per capita — 8" loading="lazy" />
-        <div class="img-caption">Vista geral por concelho</div>
-      </div>
-      <div class="img-card" data-section="s3" data-index="2">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide3/9.png" alt="Consumo per capita — Faro" loading="lazy" />
-        <div class="img-caption">Faro</div>
-      </div>
-      <div class="img-card" data-section="s3" data-index="3">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide3/10.png" alt="Consumo per capita — Setúbal" loading="lazy" />
-        <div class="img-caption">Setúbal</div>
-      </div>
-      <div class="img-card" data-section="s3" data-index="4">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide3/11.png" alt="Consumo per capita — Aveiro" loading="lazy" />
-        <div class="img-caption">Aveiro</div>
-      </div>
-      <div class="img-card" data-section="s3" data-index="5">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide3/12.png" alt="Consumo per capita — Castelo Branco" loading="lazy" />
-        <div class="img-caption">Castelo Branco</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Slide 4: Nº de UPACs ── -->
-  <section id="s4">
-    <div class="section-header">
-      <div class="section-num">04 &mdash; Slide 4</div>
-      <h2 class="section-title">Nº de UPACs</h2>
-      <p class="section-desc">Distribuição das Unidades de Produção para Autoconsumo (UPACs) — instalações solares fotovoltaicas de autoconsumo — por distrito e concelho. Indicador de penetração das energias renováveis no tecido doméstico.</p>
-    </div>
-    <div class="img-grid" id="grid-s4">
-      <div class="img-card" data-section="s4" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide4/1.png" alt="UPACs por distrito" loading="lazy" />
-        <div class="img-caption">UPACs por 1000 habitantes — distrito</div>
-      </div>
-      <div class="img-card" data-section="s4" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide4/2.png" alt="UPACs série temporal" loading="lazy" />
-        <div class="img-caption">Evolução temporal</div>
-      </div>
-      <div class="img-card" data-section="s4" data-index="2">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide4/3.png" alt="UPACs — Faro" loading="lazy" />
-        <div class="img-caption">Faro</div>
-      </div>
-      <div class="img-card" data-section="s4" data-index="3">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide4/4.png" alt="UPACs — Setúbal" loading="lazy" />
-        <div class="img-caption">Setúbal</div>
-      </div>
-      <div class="img-card" data-section="s4" data-index="4">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide4/5.png" alt="UPACs — Aveiro" loading="lazy" />
-        <div class="img-caption">Aveiro</div>
-      </div>
-      <div class="img-card" data-section="s4" data-index="5">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide4/6.png" alt="UPACs — Castelo Branco" loading="lazy" />
-        <div class="img-caption">Castelo Branco</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Slide 5: Nª de CPEs ── -->
-  <section id="s5">
-    <div class="section-header">
-      <div class="section-num">05 &mdash; Slide 5</div>
-      <h2 class="section-title">Nº de CPEs</h2>
-      <p class="section-desc">Número de Centros de Produção de Eletricidade (CPEs) ativos por território. Reflete a densidade e o grau de eletrificação da rede, sendo um indicador estrutural do sistema elétrico local.</p>
-    </div>
-    <div class="img-grid" id="grid-s5">
-      <div class="img-card" data-section="s5" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide5/1.png" alt="CPEs por distrito" loading="lazy" />
+    <div class="map-group">
+      <div class="map-group-label">CPEs por 1000 habitantes &nbsp;·&nbsp; UPACs por 1000 habitantes</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide5/1.png" alt="CPEs por 1000 habitantes — por distrito" loading="lazy" />
         <div class="img-caption">CPEs por 1000 habitantes — distrito</div>
       </div>
-      <div class="img-card" data-section="s5" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide5/2.png" alt="CPEs série temporal" loading="lazy" />
-        <div class="img-caption">Evolução temporal</div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide4/1.png" alt="UPACs por 1000 habitantes — por distrito" loading="lazy" />
+        <div class="img-caption">UPACs por 1000 habitantes — distrito</div>
       </div>
-      <div class="img-card" data-section="s5" data-index="2">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide5/3.png" alt="CPEs — Faro" loading="lazy" />
-        <div class="img-caption">Faro</div>
-      </div>
-      <div class="img-card" data-section="s5" data-index="3">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide5/4.png" alt="CPEs — Setúbal" loading="lazy" />
-        <div class="img-caption">Setúbal</div>
-      </div>
-      <div class="img-card" data-section="s5" data-index="4">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide5/5.png" alt="CPEs — Aveiro" loading="lazy" />
-        <div class="img-caption">Aveiro</div>
-      </div>
-      <div class="img-card" data-section="s5" data-index="5">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide5/6.png" alt="CPEs — Castelo Branco" loading="lazy" />
-        <div class="img-caption">Castelo Branco</div>
       </div>
     </div>
-  </section>
 
-  <!-- ── Slide 6: Energia BT ── -->
-  <section id="s6">
-    <div class="section-header">
-      <div class="section-num">06 &mdash; Slide 6</div>
-      <h2 class="section-title">Energia em Baixa Tensão</h2>
-      <p class="section-desc">Consumo de energia elétrica em Baixa Tensão (BT) por habitante. Representa principalmente o consumo doméstico e de pequenos comércios — o segmento mais diretamente ligado à população residente.</p>
-    </div>
-    <div class="img-grid" id="grid-s6">
-      <div class="img-card" data-section="s6" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide6/1.png" alt="Energia BT por distrito" loading="lazy" />
+    <div class="map-group">
+      <div class="map-group-label">Energia BT per capita &nbsp;·&nbsp; Energia MAT per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide6/1.png" alt="Energia BT per capita — por distrito" loading="lazy" />
         <div class="img-caption">Energia BT per capita — distrito</div>
       </div>
-      <div class="img-card" data-section="s6" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide6/2.png" alt="Energia BT série temporal" loading="lazy" />
-        <div class="img-caption">Evolução temporal</div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide7/1.png" alt="Energia MAT per capita — por distrito" loading="lazy" />
+        <div class="img-caption">Energia MAT per capita — distrito</div>
       </div>
-      <div class="img-card" data-section="s6" data-index="2">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide6/3.png" alt="Energia BT — Faro" loading="lazy" />
-        <div class="img-caption">Faro</div>
-      </div>
-      <div class="img-card" data-section="s6" data-index="3">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide6/4.png" alt="Energia BT — Setúbal" loading="lazy" />
-        <div class="img-caption">Setúbal</div>
-      </div>
-      <div class="img-card" data-section="s6" data-index="4">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide6/5.png" alt="Energia BT — Aveiro" loading="lazy" />
-        <div class="img-caption">Aveiro</div>
-      </div>
-      <div class="img-card" data-section="s6" data-index="5">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide6/6.png" alt="Energia BT — Castelo Branco" loading="lazy" />
-        <div class="img-caption">Castelo Branco</div>
       </div>
     </div>
   </section>
 
-  <!-- ── Slide 7: Energia MAT per capita ── -->
-  <section id="s7">
+  <div class="divider"></div>
+
+  <!-- ── Mapas a nível municipal ── -->
+  <section id="s-conc">
     <div class="section-header">
-      <div class="section-num">07 &mdash; Slide 7</div>
-      <h2 class="section-title">Energia MAT per capita</h2>
-      <p class="section-desc">Energia em Muito Alta Tensão (MAT) por habitante — associada predominantemente a grandes consumidores industriais e infraestruturas. Destaca assimetrias territoriais no tecido produtivo de cada distrito.</p>
+      <div class="section-num">02 &mdash; Mapas a nível municipal</div>
+      <h2 class="section-title">Portugal — Por Concelho</h2>
+      <p class="section-desc">Distribuição a nível de município (concelho) para os mesmos indicadores, revelando variações intra-distritais e padrões de consumo no tecido local.</p>
     </div>
-    <div class="img-grid" id="grid-s7">
-      <div class="img-card" data-section="s7" data-index="0">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide7/1.png" alt="Energia MAT per capita — distrito" loading="lazy" />
-        <div class="img-caption">Energia MAT per capita — distrito</div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia Ativa Total &nbsp;·&nbsp; Consumo per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide1/1.png" alt="Energia Ativa Total por concelho" loading="lazy" />
+        <div class="img-caption">Energia Ativa Total por concelho</div>
       </div>
-      <div class="img-card" data-section="s7" data-index="1">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide7/2.png" alt="Energia MAT série temporal" loading="lazy" />
-        <div class="img-caption">Evolução temporal</div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide3/8.png" alt="Consumo per capita por concelho" loading="lazy" />
+        <div class="img-caption">Consumo per capita por concelho</div>
       </div>
-      <div class="img-card" data-section="s7" data-index="2">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide7/3.png" alt="Energia MAT — Faro" loading="lazy" />
-        <div class="img-caption">Faro</div>
       </div>
-      <div class="img-card" data-section="s7" data-index="3">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide7/4.png" alt="Energia MAT — Setúbal" loading="lazy" />
-        <div class="img-caption">Setúbal</div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">CPEs por 1000 habitantes &nbsp;·&nbsp; UPACs por 1000 habitantes</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide5/2.png" alt="CPEs por 1000 habitantes — por concelho" loading="lazy" />
+        <div class="img-caption">CPEs por 1000 habitantes — concelho</div>
       </div>
-      <div class="img-card" data-section="s7" data-index="4">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide7/5.png" alt="Energia MAT — Aveiro" loading="lazy" />
-        <div class="img-caption">Aveiro</div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide4/2.png" alt="UPACs por 1000 habitantes — por concelho" loading="lazy" />
+        <div class="img-caption">UPACs por 1000 habitantes — concelho</div>
       </div>
-      <div class="img-card" data-section="s7" data-index="5">
-        <div class="zoom-hint">↗ Ver em detalhe</div>
-        <img src="images/slide7/6.png" alt="Energia MAT — Castelo Branco" loading="lazy" />
-        <div class="img-caption">Castelo Branco</div>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia BT per capita &nbsp;·&nbsp; Energia MAT per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide6/2.png" alt="Energia BT per capita — por concelho" loading="lazy" />
+        <div class="img-caption">Energia BT per capita — concelho</div>
+      </div>
+      <div class="img-card tall">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide7/2.png" alt="Energia MAT per capita — por concelho" loading="lazy" />
+        <div class="img-caption">Energia MAT per capita — concelho</div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Faro ── -->
+  <section id="s-faro">
+    <div class="section-header">
+      <div class="section-num">03 &mdash; Zoom por Distrito</div>
+      <h2 class="section-title">Faro</h2>
+      <p class="section-desc">Análise ao nível dos concelhos do distrito de Faro, explorando padrões de consumo, eletrificação e autoconsumo no Algarve.</p>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia Ativa Total &nbsp;·&nbsp; Consumo per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide2/3.png" alt="Energia Ativa Total — Faro (zoom)" loading="lazy" />
+        <div class="img-caption">Energia Ativa Total — Faro</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide3/9.png" alt="Consumo per capita — Faro (zoom)" loading="lazy" />
+        <div class="img-caption">Consumo per capita — Faro</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Loulé lidera no consumo absoluto, provavelmente porque combina vários fatores: maior dimensão urbana, área geográfica, forte atividade turística e polos de elevado consumo como Vilamoura, Quinta do Lago, Quarteira e Almancil.</p>
+        <p>Albufeira também surge com grandes consumos, liderando no consumo per capita, o que faz sentido pelo seu perfil fortemente turístico: praias, alojamento, restauração, vida noturna e elevada ocupação sazonal e é o concelho de Faro com mais hotéis, considerada a capital do turismo no Algarve.</p>
+        <p>Faro e Portimão aparecem relevantes no consumo absoluto, mas não dominam tanto no per capita. Isto sugere que parte do consumo elevado resulta da sua maior escala urbana/populacional, e não necessariamente de uma intensidade energética tão extrema.</p>
+        <p>Castro Marim destaca-se muito no consumo per capita, apesar de não ser dos maiores em consumo absoluto. Isto indica que, face à população residente, existem consumos específicos com muito peso relativo, nomeadamente infraestruturas maiores e consumos não domésticos. Para além disso é dos concelhos algarvios mais vulneráveis à temperatura.</p>
+        <p>Vila do Bispo e Lagoa aparecem consideravelmente mais fortes no per capita do que no consumo absoluto, o que pode estar ligado ao peso de turismo, alojamento temporário e população sazonal. Vila do Bispo é promovido pelo município como território de turismo de natureza e cultura, para além do "sol e praia".</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">CPEs por 1000 habitantes &nbsp;·&nbsp; UPACs por 1000 habitantes</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide5/3.png" alt="CPEs por 1000 habitantes — Faro (zoom)" loading="lazy" />
+        <div class="img-caption">CPEs por 1000 hab. — Faro</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide4/3.png" alt="UPACs por 1000 habitantes — Faro (zoom)" loading="lazy" />
+        <div class="img-caption">UPACs por 1000 hab. — Faro</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Alcoutim destaca-se nos CPEs por 1000 habitantes, não porque tenha muitos CPEs em termos absolutos, mas porque tem uma população residente muito reduzida. A Pordata identifica Alcoutim como o município português com menor densidade populacional (cerca de 4,2 hab./km²). Este valor elevado em Alcoutim pode refletir uma estrutura territorial dispersa: muitas habitações, pontos de consumo ou edifícios ligados a uma população residente pequena e envelhecida.</p>
+        <p>Castro Marim e Vila Real de Santo António também se destacam nos CPEs, o que pode estar ligado à presença de habitação sazonal, turismo e diferença entre população residente e população efetivamente presente em certas alturas do ano.</p>
+        <p>Nas UPACs por 1000 habitantes, destacam-se Aljezur, Castro Marim e Vila Real de Santo António. Em concelhos menos densos, com moradias, área disponível e boa exposição solar, a instalação de painéis solares é mais viável do que em zonas urbanas densas.</p>
+        <p>Aljezur destacar-se nas UPACs está relacionado com um perfil territorial mais disperso, maior peso de habitação unifamiliar e maior disponibilidade de coberturas/terreno para autoconsumo. Para além disso existem fortes iniciativas de turismo rural sustentável.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia BT per capita &nbsp;·&nbsp; Energia MAT per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide6/3.png" alt="Energia BT per capita — Faro (zoom)" loading="lazy" />
+        <div class="img-caption">Energia BT per capita — Faro</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide7/3.png" alt="Energia MAT per capita — Faro (zoom)" loading="lazy" />
+        <div class="img-caption">Energia MAT per capita — Faro</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Loulé e Albufeira e Vila do Bispo destacam-se em BT per capita, o que é coerente com territórios onde há forte peso de serviços, alojamento turístico, restauração, comércio e consumo doméstico/sazonal. A Energia BT parece acompanhar melhor estes concelhos com forte componente turística e residencial, onde muitos consumos estão ligados a pequenos consumidores, alojamentos, comércio local e climatização.</p>
+        <p>Castro Marim é o grande outlier em MAT per capita. Isto sugere que existem consumos de maior escala com peso muito elevado face à população residente. Uma possível explicação para Castro Marim é a presença de atividades económicas específicas e infraestruturas territoriais com consumo mais intensivo. O município destaca a importância histórica e económica da salinicultura, e o ICNF refere que as salinas ocupam cerca de 30% da Reserva Natural do Sapal de Castro Marim.</p>
+        <p>Albufeira e Loulé também aparecem relevantes em MAT, mas aí a explicação poderá estar mais associada a hotéis, equipamentos turísticos, grandes superfícies, serviços e infraestruturas de maior dimensão.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Setúbal ── -->
+  <section id="s-setubal">
+    <div class="section-header">
+      <div class="section-num">04 &mdash; Zoom por Distrito</div>
+      <h2 class="section-title">Setúbal</h2>
+      <p class="section-desc">Análise ao nível dos concelhos do distrito de Setúbal, com destaque para a dualidade entre a área metropolitana e os concelhos de baixa densidade e forte indústria pesada.</p>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia Ativa Total &nbsp;·&nbsp; Consumo per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide2/4.png" alt="Energia Ativa Total — Setúbal (zoom)" loading="lazy" />
+        <div class="img-caption">Energia Ativa Total — Setúbal</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide3/10.png" alt="Consumo per capita — Setúbal (zoom)" loading="lazy" />
+        <div class="img-caption">Consumo per capita — Setúbal</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Setúbal e Seixal destacam-se no consumo absoluto, refletindo maior peso urbano, populacional e industrial.</p>
+        <p>Sines também surge muito forte no consumo absoluto, apesar de ter menor população residente do que os concelhos metropolitanos.</p>
+        <p>Palmela aparece com consumo absoluto relevante, o que pode estar associado ao peso industrial, nomeadamente à presença da Volkswagen Autoeuropa, descrita pela própria empresa como um dos maiores investimentos industriais estrangeiros em Portugal e localizada em Palmela.</p>
+        <p>O mapa per capita muda totalmente a leitura: Sines torna-se o grande e único outlier do distrito. O valor muito elevado de Sines no consumo per capita faz sentido pela presença do Porto de Sines e da ZILS, descrita como a maior zona industrial e logística de Portugal. Este padrão sugere que Sines não consome muito "por ter muita população", mas sim porque concentra atividade portuária, logística, petroquímica e industrial pesada.</p>
+        <p>Setúbal e Seixal, apesar de fortes no total, ficam menos extremos no per capita porque o consumo é diluído por uma população residente mais elevada.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">CPEs por 1000 habitantes &nbsp;·&nbsp; UPACs por 1000 habitantes</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide5/4.png" alt="CPEs por 1000 habitantes — Setúbal (zoom)" loading="lazy" />
+        <div class="img-caption">CPEs por 1000 hab. — Setúbal</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide4/4.png" alt="UPACs por 1000 habitantes — Setúbal (zoom)" loading="lazy" />
+        <div class="img-caption">UPACs por 1000 hab. — Setúbal</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Nos CPEs por 1000 habitantes, destacam-se sobretudo Grândola, Alcácer do Sal, Santiago do Cacém e Sines. Este padrão sugere territórios com muitos pontos de consumo face à população residente, possivelmente associados a baixa densidade, povoamento disperso e eventualmente algum turismo e habitação sazonal.</p>
+        <p>Grândola destaca-se claramente nos CPEs o que pode estar ligado ao peso crescente do eixo "Tróia–Comporta–Melides", com alojamento turístico, residências secundárias e empreendimentos dispersos. A Câmara de Grândola destaca, por exemplo, a Praia da Comporta como zona de forte vocação turística e de natureza.</p>
+        <p>Alcácer do Sal também aparece forte nos CPEs relativos, o que pode refletir a grande extensão territorial, baixa densidade populacional e dispersão de pontos de consumo.</p>
+        <p>Nas UPACs por 1000 habitantes, Sesimbra destaca-se fortemente. O destaque de Sesimbra nas UPACs pode estar relacionado com maior presença de habitações unifamiliares e segundas habitações, onde a instalação de painéis solares tende a ser mais viável.</p>
+        <p>Alcácer do Sal, Grândola, Palmela e Santiago do Cacém também apresentam valores relativamente elevados de UPACs, sugerindo maior disponibilidade de área, coberturas e condições para autoconsumo fora dos núcleos urbanos mais densos.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia BT per capita &nbsp;·&nbsp; Energia MAT per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide6/4.png" alt="Energia BT per capita — Setúbal (zoom)" loading="lazy" />
+        <div class="img-caption">Energia BT per capita — Setúbal</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide7/4.png" alt="Energia MAT per capita — Setúbal (zoom)" loading="lazy" />
+        <div class="img-caption">Energia MAT per capita — Setúbal</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Na Energia BT per capita, destacam-se sobretudo Grândola, Alcácer do Sal, Santiago do Cacém e Sines. Este padrão é coerente com concelhos menos densos, onde o consumo residencial, turístico ou disperso pesa mais quando dividido pela população residente.</p>
+        <p>Grândola destaca-se em BT per capita, refletindo turismo, habitação sazonal e consumo disperso associado ao eixo litoral.</p>
+        <p>Sines é o grande destaque absoluto em MAT per capita, ficando muito acima de todos os outros concelhos. Confirmando a causa principal é a ZILS, o porto de águas profundas e outras atividades industriais/logísticas pesadas. A "Administração dos Portos de Sines e do Algarve" refere que a plataforma portuária e logística de Sines inclui a ZILS, com mais de 4.200 hectares preparados para indústria ligeira e pesada. O Porto de Sines tem também um terminal petroquímico ligado por pipeline ao complexo petroquímico na ZILS, o que contribui para a explicação da intensidade energética do tipo MAT.</p>
+        <p>Nos restantes concelhos, a MAT per capita é muito inferior, indicando que o consumo relativo é dominado sobretudo por BT e não por grandes consumidores industriais.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Aveiro ── -->
+  <section id="s-aveiro">
+    <div class="section-header">
+      <div class="section-num">05 &mdash; Zoom por Distrito</div>
+      <h2 class="section-title">Aveiro</h2>
+      <p class="section-desc">Análise ao nível dos concelhos do distrito de Aveiro, caracterizado pelo forte tecido industrial e pelo peso do complexo químico de Estarreja.</p>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia Ativa Total &nbsp;·&nbsp; Consumo per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide2/5.png" alt="Energia Ativa Total — Aveiro (zoom)" loading="lazy" />
+        <div class="img-caption">Energia Ativa Total — Aveiro</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide3/11.png" alt="Consumo per capita — Aveiro (zoom)" loading="lazy" />
+        <div class="img-caption">Consumo per capita — Aveiro</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>O concelho de Aveiro destaca-se no consumo absoluto, o que faz sentido pela combinação entre função urbana, atividade económica que serve vários setores industriais como cerâmica, química, metalurgia, madeira, agroalimentar e construção. Para além disso é um dos concelhos mais populosos.</p>
+        <p>Santa Maria da Feira também aparece muito forte no consumo total, coerente com o seu tecido industrial diversificado, com peso em setores como cortiça, calçado, metalomecânica, mobiliário, papel/cartão e têxteis e é o concelho mais populoso do distrito.</p>
+        <p>Estarreja surge forte no consumo absoluto, mas torna-se o grande destaque no consumo per capita, indicando que o consumo não resulta apenas da população residente. Este destaque é explicado pelo peso do seu complexo químico-industrial, onde existem unidades de produção de químicos orgânicos e inorgânicos.</p>
+        <p>Águeda e Oliveira de Azeméis apresentam valores relevantes no consumo absoluto, compatíveis com territórios de tradição industrial e empresarial.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">CPEs por 1000 habitantes &nbsp;·&nbsp; UPACs por 1000 habitantes</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide5/5.png" alt="CPEs por 1000 habitantes — Aveiro (zoom)" loading="lazy" />
+        <div class="img-caption">CPEs por 1000 hab. — Aveiro</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide4/5.png" alt="UPACs por 1000 habitantes — Aveiro (zoom)" loading="lazy" />
+        <div class="img-caption">UPACs por 1000 hab. — Aveiro</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Nos CPEs por 1000 habitantes, destacam-se sobretudo Murtosa, Sever do Vouga, Vale de Cambra, Vagos e Anadia. Estes valores estão essencialmente ligados a concelhos com menor população residente, povoamento mais disperso e maior peso relativo de habitações/pontos de consumo por habitante.</p>
+        <p>Murtosa aparece como o caso mais forte nos CPEs, não significa necessariamente maior dimensão absoluta da rede, mas sim mais CPEs face à população residente que é muito reduzida (10–11 mil habitantes).</p>
+        <p>Nas UPACs por 1000 habitantes, destacam-se Castelo de Paiva, Mealhada, Oliveira do Bairro, Águeda e Vagos.</p>
+        <p>O destaque de Castelo de Paiva resulta, também, sobretudo do efeito de escala populacional reduzida. Águeda e Oliveira do Bairro destacam-se nas UPACs relativas, por conjugarem tecido residencial/empresarial com maior disponibilidade de coberturas e espaço para instalação de autoconsumo.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia BT per capita &nbsp;·&nbsp; Energia MAT per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide6/5.png" alt="Energia BT per capita — Aveiro (zoom)" loading="lazy" />
+        <div class="img-caption">Energia BT per capita — Aveiro</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide7/5.png" alt="Energia MAT per capita — Aveiro (zoom)" loading="lazy" />
+        <div class="img-caption">Energia MAT per capita — Aveiro</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Na Energia BT per capita, destacam-se São João da Madeira, Aveiro, Sever do Vouga, Anadia e Arouca.</p>
+        <p>O caso de São João da Madeira é interessante: apesar da sua pequena dimensão territorial, tem forte densidade económica e industrial, especialmente ligada ao setor do calçado. A BT per capita elevada está ligada a consumos de pequenos negócios, serviços, comércio e unidades industriais de menor escala ligadas à estrutura urbana e produtiva local.</p>
+        <p>Na Energia MAT per capita, Estarreja é, mais uma vez e pelo mesmo motivo mencionado anteriormente, o grande outlier do distrito. Este motivo é a presença do complexo químico de Estarreja.</p>
+        <p>Aveiro também apresenta algum peso em MAT, que está relacionado com a atividade portuária, logística e industrial associada ao Porto de Aveiro.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── Castelo Branco ── -->
+  <section id="s-cb">
+    <div class="section-header">
+      <div class="section-num">06 &mdash; Zoom por Distrito</div>
+      <h2 class="section-title">Castelo Branco</h2>
+      <p class="section-desc">Análise ao nível dos concelhos do distrito de Castelo Branco, marcado pela baixa densidade populacional, pelo interior rural e pela presença da indústria da pasta e papel em Vila Velha de Ródão.</p>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia Ativa Total &nbsp;·&nbsp; Consumo per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide2/6.png" alt="Energia Ativa Total — Castelo Branco (zoom)" loading="lazy" />
+        <div class="img-caption">Energia Ativa Total — Castelo Branco</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide3/12.png" alt="Consumo per capita — Castelo Branco (zoom)" loading="lazy" />
+        <div class="img-caption">Consumo per capita — Castelo Branco</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Castelo Branco e Covilhã destacam-se no consumo absoluto, o que é expectável por serem os principais centros urbanos e económicos do distrito.</p>
+        <p>Castelo Branco concentra atividade empresarial relevante: a "Área de Localização Empresarial de Castelo Branco" tem cerca de 280 hectares infraestruturados, acesso direto à A23 e mais de 200 empresas instaladas. Embora em termos relativos os consumos sejam diluídos pelo elevado número de população residente.</p>
+        <p>Covilhã também apresenta consumo absoluto elevado, associado ao seu papel urbano, universitário, comercial e à tradição industrial da Cova da Beira, historicamente ligada aos lanifícios.</p>
+        <p>Vila Velha de Ródão não é dos maiores concelhos em população, mas aparece muito forte no consumo absoluto, o que é ainda mais amplificado quando relativizado (per capita), isto porque tem uma população reduzida (apenas cerca de 3.577 residentes em 2024, segundo a Pordata). A principal explicação é o peso da indústria da pasta e papel. O município identifica a presença de unidades como The Navigator Company, Paper Prime e atividades de produção/transformação de pasta de papel.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">CPEs por 1000 habitantes &nbsp;·&nbsp; UPACs por 1000 habitantes</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide5/6.png" alt="CPEs por 1000 habitantes — Castelo Branco (zoom)" loading="lazy" />
+        <div class="img-caption">CPEs por 1000 hab. — Castelo Branco</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide4/6.png" alt="UPACs por 1000 habitantes — Castelo Branco (zoom)" loading="lazy" />
+        <div class="img-caption">UPACs por 1000 hab. — Castelo Branco</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Nos CPEs por 1000 habitantes, destacam-se sobretudo Idanha-a-Nova, Penamacor, Oleiros e Vila Velha de Ródão. Este padrão não significa necessariamente muitos CPEs em valor absoluto, significa muitos pontos de consumo face a uma população residente reduzida. Idanha-a-Nova, Penamacor e Oleiros são concelhos de baixa densidade populacional. Dados do INE indicam densidades muito reduzidas, como cerca de 6 hab./km² em Idanha-a-Nova, 8,6 em Penamacor e 10,4 em Oleiros.</p>
+        <p>Isto ajuda a explicar valores elevados de CPEs: são territórios extensos, rurais e dispersos que tendem a ter muitos edifícios, explorações, habitações isoladas ou pontos de ligação face a poucos residentes.</p>
+        <p>Nas UPACs por 1000 habitantes, destaca-se claramente Vila Velha de Ródão, seguido por concelhos como Proença-a-Nova, Oleiros, Sertã e Penamacor.</p>
+        <p>Vila Velha de Ródão surge destacada mais uma vez por causa das indústrias papeleiras, que tal como outras indústrias são muito incentivadas a instalar painéis solares. A Navigator, por exemplo, anunciou uma central solar de autoconsumo na fábrica de tissue com 4,13 MWp e cerca de 9.000 painéis solares.</p>
+      </div>
+    </div>
+
+    <div class="map-group">
+      <div class="map-group-label">Energia BT per capita &nbsp;·&nbsp; Energia MAT per capita</div>
+      <div class="img-grid two-col">
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide6/6.png" alt="Energia BT per capita — Castelo Branco (zoom)" loading="lazy" />
+        <div class="img-caption">Energia BT per capita — Castelo Branco</div>
+      </div>
+      <div class="img-card">
+        <div class="zoom-hint">&#x2197; Ver em detalhe</div>
+        <img src="images/slide7/6.png" alt="Energia MAT per capita — Castelo Branco (zoom)" loading="lazy" />
+        <div class="img-caption">Energia MAT per capita — Castelo Branco</div>
+      </div>
+      </div>
+      <div class="analysis-block">
+        <p>Na Energia BT per capita, destaca-se muito Idanha-a-Nova, seguido por concelhos como Vila Velha de Ródão, Covilhã, Fundão e Penamacor. O caso de Idanha-a-Nova está mais uma vez relacionado com a baixa população residente e elevada dispersão territorial.</p>
+        <p>Na Energia MAT per capita, Vila Velha de Ródão é novamente o grande outlier. E novamente a explicação é consistente com a presença da indústria da pasta e papel.</p>
+        <p>Além disso, projetos industriais ligados à Celtejo incluíram uma central térmica para responder às necessidades da fábrica em vapor de processo e energia elétrica, reforçando a dimensão energética deste polo industrial.</p>
       </div>
     </div>
   </section>
@@ -662,33 +860,31 @@
 
 <!-- ── Footer ──────────────────────────────────────────────────────── -->
 <footer>
-  <p>PFACD · Programação e Fundamentos de Análise e Ciência de Dados &nbsp;·&nbsp; 3.º Ano Licenciatura &nbsp;·&nbsp; 2024–2025</p>
+  <p>PFACD &middot; Programa&ccedil;&atilde;o e Fundamentos de An&aacute;lise e Ci&ecirc;ncia de Dados &nbsp;&middot;&nbsp; 3.&ordm; Ano Licenciatura &nbsp;&middot;&nbsp; 2024&ndash;2025</p>
   <p style="margin-top:0.5rem;opacity:0.7;font-size:0.8rem;">
-    Grupo 23 &nbsp;·&nbsp;
-    Bernardo Encarnação 123457 &nbsp;·&nbsp;
-    Diogo Cordovil 105346 &nbsp;·&nbsp;
-    Isaque Portilho 123470 &nbsp;·&nbsp;
-    João Fernandes 123386
+    Grupo 23 &nbsp;&middot;&nbsp;
+    Bernardo Encarna&ccedil;&atilde;o 123457 &nbsp;&middot;&nbsp;
+    Diogo Cordovil 105346 &nbsp;&middot;&nbsp;
+    Isaque Portilho 123470 &nbsp;&middot;&nbsp;
+    Jo&atilde;o Fernandes 123386
   </p>
 </footer>
 
 <!-- ── Lightbox ────────────────────────────────────────────────────── -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
-  <button class="lb-close" id="lb-close" aria-label="Fechar">✕ Fechar</button>
+  <button class="lb-close" id="lb-close" aria-label="Fechar">&#x2715; Fechar</button>
   <img id="lb-img" src="" alt="" />
   <div id="lightbox-caption"></div>
   <div class="lb-nav">
-    <button class="lb-btn" id="lb-prev">← Anterior</button>
-    <button class="lb-btn" id="lb-next">Próxima →</button>
+    <button class="lb-btn" id="lb-prev">&larr; Anterior</button>
+    <button class="lb-btn" id="lb-next">Pr&oacute;xima &rarr;</button>
   </div>
 </div>
 
 <script>
   (() => {
-    // Collect all image cards
     const cards = Array.from(document.querySelectorAll('.img-card'));
     let current = 0;
-
     const lb      = document.getElementById('lightbox');
     const lbImg   = document.getElementById('lb-img');
     const lbCap   = document.getElementById('lightbox-caption');
@@ -720,32 +916,28 @@
     });
 
     lbClose.addEventListener('click', close);
-    lbPrev.addEventListener('click', () => open(current - 1));
-    lbNext.addEventListener('click', () => open(current + 1));
-
+    lbPrev.addEventListener('click',  () => open(current - 1));
+    lbNext.addEventListener('click',  () => open(current + 1));
     lb.addEventListener('click', e => { if (e.target === lb) close(); });
 
     document.addEventListener('keydown', e => {
       if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowRight') open(current + 1);
-      if (e.key === 'ArrowLeft')  open(current - 1);
+      if (e.key === 'Escape')      close();
+      if (e.key === 'ArrowRight')  open(current + 1);
+      if (e.key === 'ArrowLeft')   open(current - 1);
     });
 
-    // Active nav link on scroll
     const sections = document.querySelectorAll('main section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
-
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navLinks.forEach(a => a.style.color = '');
-          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          const active = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
           if (active) active.style.color = 'var(--accent2)';
         }
       });
     }, { rootMargin: '-40% 0px -55%' });
-
     sections.forEach(s => obs.observe(s));
   })();
 </script>
