@@ -354,10 +354,66 @@
       color: var(--text-muted);
     }
 
+    /* ── Hamburger button ──────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px; height: 36px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 6px 8px;
+      flex-shrink: 0;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-dim);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s;
+    }
+
     /* ── Responsive ──────────────────────────────────────────────── */
     @media (max-width: 640px) {
-      nav { padding: 0 1rem; }
+      nav {
+        padding: 0 1rem;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 52px;
+        padding-top: 0; padding-bottom: 0;
+        align-items: center;
+      }
+
       .nav-brand { font-size: 0.75rem; }
+
+      .nav-hamburger { display: flex; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding: 0.5rem 0 0.75rem;
+        gap: 0.15rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        width: 100%;
+      }
+
+      .nav-links li[style] { display: none; } /* hide the | separator */
+
       .hero { padding: 7rem 1rem 3rem; }
       main { padding: 2rem 1rem 4rem; gap: 3.5rem; }
       .img-card img, .img-card.tall img { height: 220px; }
@@ -431,7 +487,10 @@
 <!-- ── Navigation ──────────────────────────────────────────────────── -->
 <nav>
   <span class="nav-brand">PFACD Grupo 23 &mdash; An&aacute;lise &amp; Clustering</span>
-  <ul class="nav-links">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#s-dist">Distrital</a></li>
     <li><a href="#s-conc">Municipal</a></li>
     <li><a href="#s-faro">Faro</a></li>
@@ -1007,6 +1066,23 @@
     function close() {
       lb.classList.remove('open');
       document.body.style.overflow = '';
+    }
+
+    // Hamburger toggle
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', open);
+      });
+      // Close menu when a link is clicked
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
     }
 
     cards.forEach((card, i) => {
